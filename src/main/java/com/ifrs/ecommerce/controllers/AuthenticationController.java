@@ -2,7 +2,7 @@ package com.ifrs.ecommerce.controllers;
 
 import com.ifrs.ecommerce.dtos.LoginUserDto;
 import com.ifrs.ecommerce.dtos.RegisterUserDto;
-import com.ifrs.ecommerce.entities.User;
+import com.ifrs.ecommerce.models.User;
 import com.ifrs.ecommerce.responses.LoginResponse;
 import com.ifrs.ecommerce.services.AuthenticationService;
 import com.ifrs.ecommerce.services.JwtService;

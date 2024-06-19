@@ -2,7 +2,7 @@ package com.ifrs.ecommerce.services;
 
 import com.ifrs.ecommerce.dtos.LoginUserDto;
 import com.ifrs.ecommerce.dtos.RegisterUserDto;
-import com.ifrs.ecommerce.entities.User;
+import com.ifrs.ecommerce.models.User;
 import com.ifrs.ecommerce.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

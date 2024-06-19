@@ -1,4 +1,4 @@
-package com.ifrs.ecommerce.entities;
+package com.ifrs.ecommerce.models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
