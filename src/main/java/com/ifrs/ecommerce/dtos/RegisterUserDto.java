@@ -5,7 +5,7 @@ public class RegisterUserDto {
 
     private String password;
 
-    private String fullName;
+    private String name;
 
     public String getEmail() {
         return email;
@@ -23,11 +23,11 @@ public class RegisterUserDto {
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

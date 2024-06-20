@@ -15,11 +15,10 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
-    private String fullName;
+    @Column(nullable = false, length = 100)
+    private String name;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
@@ -69,17 +68,16 @@ public class User implements UserDetails {
         return id;
     }
 
-    public User setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
-        return this;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public User setFullName(String fullName) {
-        this.fullName = fullName;
+    public User setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -99,5 +97,21 @@ public class User implements UserDetails {
     public User setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
