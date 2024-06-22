@@ -1,5 +1,6 @@
 package com.ifrs.ecommerce.controllers;
 
+import com.ifrs.ecommerce.responses.DefaultResponse;
 import com.ifrs.ecommerce.dtos.LoginUserDto;
 import com.ifrs.ecommerce.dtos.RegisterUserDto;
 import com.ifrs.ecommerce.entities.User;
@@ -25,20 +26,18 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<DefaultResponse> register(@RequestBody RegisterUserDto registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
-
-        return ResponseEntity.ok(registeredUser);
+        return DefaultResponse.build(registeredUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<DefaultResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
-
-        return ResponseEntity.ok(loginResponse);
+        return DefaultResponse.build(loginResponse, "Login successful.");
     }
 }
