@@ -1,4 +1,4 @@
-package com.ifrs.ecommerce.models;
+package com.ifrs.ecommerce.models.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
