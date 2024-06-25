@@ -57,11 +57,11 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 new DefaultResponse(
                         errors,
-                        "Invalid request body",
-                        String.valueOf(HttpStatus.BAD_REQUEST.value())
+                        "Validation error",
+                        String.valueOf(HttpStatus.FORBIDDEN.value())
                 )
         );
     }
