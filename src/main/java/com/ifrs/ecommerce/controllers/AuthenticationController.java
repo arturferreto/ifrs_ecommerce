@@ -7,6 +7,7 @@ import com.ifrs.ecommerce.models.User;
 import com.ifrs.ecommerce.responses.LoginResponse;
 import com.ifrs.ecommerce.services.AuthenticationService;
 import com.ifrs.ecommerce.services.JwtService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,13 +27,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<DefaultResponse> register(@RequestBody RegisterUserDto registerUserDto) {
+    public ResponseEntity<DefaultResponse> register(@RequestBody @Valid RegisterUserDto registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
         return DefaultResponse.build(registeredUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<DefaultResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<DefaultResponse> authenticate(@RequestBody @Valid LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
