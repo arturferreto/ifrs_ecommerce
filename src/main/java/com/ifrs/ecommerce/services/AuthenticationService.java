@@ -2,7 +2,7 @@ package com.ifrs.ecommerce.services;
 
 import com.ifrs.ecommerce.dtos.LoginUserDto;
 import com.ifrs.ecommerce.dtos.RegisterUserDto;
-import com.ifrs.ecommerce.entities.User;
+import com.ifrs.ecommerce.models.User;
 import com.ifrs.ecommerce.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,10 +28,10 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterUserDto input) {
-        User user = new User()
-                .setFullName(input.getFullName())
-                .setEmail(input.getEmail())
-                .setPassword(passwordEncoder.encode(input.getPassword()));
+        User user = new User();
+        user.setEmail(input.getEmail());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setName(input.getName());
 
         return userRepository.save(user);
     }

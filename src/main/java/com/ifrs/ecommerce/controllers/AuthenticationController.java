@@ -3,7 +3,7 @@ package com.ifrs.ecommerce.controllers;
 import com.ifrs.ecommerce.responses.DefaultResponse;
 import com.ifrs.ecommerce.dtos.LoginUserDto;
 import com.ifrs.ecommerce.dtos.RegisterUserDto;
-import com.ifrs.ecommerce.entities.User;
+import com.ifrs.ecommerce.models.User;
 import com.ifrs.ecommerce.responses.LoginResponse;
 import com.ifrs.ecommerce.services.AuthenticationService;
 import com.ifrs.ecommerce.services.JwtService;
@@ -25,7 +25,7 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/sign-up")
     public ResponseEntity<DefaultResponse> register(@RequestBody RegisterUserDto registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
         return DefaultResponse.build(registeredUser);
@@ -38,6 +38,7 @@ public class AuthenticationController {
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+
         return DefaultResponse.build(loginResponse, "Login successful.");
     }
 }

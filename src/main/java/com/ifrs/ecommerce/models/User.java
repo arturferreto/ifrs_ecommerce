@@ -1,4 +1,4 @@
-package com.ifrs.ecommerce.entities;
+package com.ifrs.ecommerce.models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,16 +10,19 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "users")
-@Entity
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity(name = "users")
+@Data
+@NoArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
     private Integer id;
 
-    @Column(nullable = false)
-    private String fullName;
+    @Column(nullable = false, length = 100)
+    private String name;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
@@ -45,6 +48,10 @@ public class User implements UserDetails {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -63,41 +70,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public User setId(Integer id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public User setFullName(String fullName) {
-        this.fullName = fullName;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
     }
 }
