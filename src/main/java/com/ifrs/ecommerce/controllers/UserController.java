@@ -1,6 +1,7 @@
 package com.ifrs.ecommerce.controllers;
 
 import com.ifrs.ecommerce.models.User;
+import com.ifrs.ecommerce.responses.DefaultResponse;
 import com.ifrs.ecommerce.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,18 +22,18 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<User>> allUsers() {
+    public ResponseEntity<DefaultResponse> allUsers() {
         List <User> users = userService.allUsers();
 
-        return ResponseEntity.ok(users);
+        return DefaultResponse.build(users);
     }
 
     @GetMapping("/me")
-    public ResponseEntity<User> authenticatedUser() {
+    public ResponseEntity<DefaultResponse> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         User currentUser = (User) authentication.getPrincipal();
 
-        return ResponseEntity.ok(currentUser);
+        return DefaultResponse.build(currentUser);
     }
 }
