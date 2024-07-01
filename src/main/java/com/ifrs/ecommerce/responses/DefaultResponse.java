@@ -71,4 +71,19 @@ public class DefaultResponse {
                         String.valueOf(statusCode.value()))
         );
     }
+
+    /**
+     * Gera um response padrão com a mensagem e statusCode informados.
+     * @param message Mensagem da resposta.
+     * @param statusCode Status code.
+     * @return Response entity padronizada.
+     */
+    public static ResponseEntity<DefaultResponse> build(String message, HttpStatus statusCode) {
+        return ResponseEntity.status(statusCode).body(
+                new DefaultResponse(
+                        null,
+                        message,
+                        String.valueOf(statusCode.value()))
+        );
+    }
 }
