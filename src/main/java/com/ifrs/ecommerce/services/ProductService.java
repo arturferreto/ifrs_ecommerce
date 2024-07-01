@@ -1,5 +1,7 @@
 package com.ifrs.ecommerce.services;
 
+import com.ifrs.ecommerce.dtos.ProductStoreDto;
+import com.ifrs.ecommerce.dtos.ProductUpdateDto;
 import com.ifrs.ecommerce.models.Product;
 import com.ifrs.ecommerce.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -25,5 +27,41 @@ public class ProductService {
 
     public Product one(Integer id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    public Product store(ProductStoreDto dto) {
+        Product product = new Product();
+        product.setName(dto.name());
+        product.setPrice(dto.price());
+        product.setDescription(dto.description());
+        productRepository.save(product);
+        return product;
+    }
+
+    public Product update(Integer id, ProductUpdateDto dto) {
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (product == null) {
+            return null;
+        }
+
+        product.setName(dto.name());
+        product.setPrice(dto.price());
+        product.setDescription(dto.description());
+        productRepository.save(product);
+
+        return product;
+    }
+
+    public boolean delete(Integer id) {
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (product == null) {
+            return false;
+        }
+
+        productRepository.delete(product);
+
+        return true;
     }
 }
