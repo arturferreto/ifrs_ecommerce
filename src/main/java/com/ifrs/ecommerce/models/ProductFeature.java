@@ -5,10 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity(name = "product_features")
+@EntityListeners(AuditingEntityListener.class)
 @Data
 @NoArgsConstructor
 public class ProductFeature {
@@ -27,6 +29,7 @@ public class ProductFeature {
     private Integer quantity;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate

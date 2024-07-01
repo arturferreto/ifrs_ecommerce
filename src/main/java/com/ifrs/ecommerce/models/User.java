@@ -3,6 +3,7 @@ package com.ifrs.ecommerce.models;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 @Data
 @NoArgsConstructor
 public class User implements UserDetails {
@@ -37,6 +39,7 @@ public class User implements UserDetails {
     private String phone;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate

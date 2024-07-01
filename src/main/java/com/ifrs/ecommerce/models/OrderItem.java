@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity(name = "order_items")
+@EntityListeners(AuditingEntityListener.class)
 @Table(indexes = {
-        @Index(name = "order_product_index", columnList = "order_id,product_feature_id")
+    @Index(name = "order_product_index", columnList = "order_id,product_feature_id")
 })
 @Data
 @NoArgsConstructor
@@ -31,6 +33,7 @@ public class OrderItem {
     private Integer quantity;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
