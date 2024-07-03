@@ -47,7 +47,7 @@ public class DiscountController {
         return DefaultResponse.build(discount, HttpStatus.CREATED);
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<DefaultResponse> update(@PathVariable Integer id, @RequestBody @Valid DiscountDto discountDto) {
         Discount discount = discountService.update(id, discountDto);
 
