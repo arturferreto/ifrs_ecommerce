@@ -45,7 +45,7 @@ public class ProductFeatureController {
         return DefaultResponse.build(feature, HttpStatus.CREATED);
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<DefaultResponse> update(@PathVariable Integer productId, @PathVariable Integer id, @RequestBody @Valid ProductFeatureDto productFeatureDto) {
         ProductFeature feature = productFeatureService.update(productId, id, productFeatureDto);
 
