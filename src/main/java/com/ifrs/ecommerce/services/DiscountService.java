@@ -64,4 +64,8 @@ public class DiscountService {
         return true;
     }
 
+    public void updateUsage(Discount discount) {
+        discount.setQuantity(discount.getQuantity() - 1);
+        discountRepository.save(discount);
+    }
 }

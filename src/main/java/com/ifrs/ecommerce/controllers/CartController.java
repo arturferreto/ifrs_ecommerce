@@ -1,5 +1,6 @@
 package com.ifrs.ecommerce.controllers;
 
+import com.ifrs.ecommerce.dtos.CartCheckoutDto;
 import com.ifrs.ecommerce.dtos.CartDto;
 import com.ifrs.ecommerce.models.Cart;
 import com.ifrs.ecommerce.responses.DefaultResponse;
@@ -31,6 +32,17 @@ public class CartController {
     @PatchMapping
     public ResponseEntity<DefaultResponse> update(@RequestBody CartDto cartDto) {
         Object result = cartService.update(cartDto);
+
+        if (result instanceof String message) {
+            return DefaultResponse.build(message, HttpStatus.BAD_REQUEST);
+        }
+
+        return DefaultResponse.build(result);
+    }
+
+    @PatchMapping("/checkout")
+    public ResponseEntity<DefaultResponse> checkout(@RequestBody CartCheckoutDto cartCheckoutDto) {
+        Object result = cartService.checkout(cartCheckoutDto);
 
         if (result instanceof String message) {
             return DefaultResponse.build(message, HttpStatus.BAD_REQUEST);

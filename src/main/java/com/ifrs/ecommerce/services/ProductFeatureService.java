@@ -81,4 +81,9 @@ public class ProductFeatureService {
 
         return true;
     }
+
+    public void updateStock(ProductFeature feature, Integer quantity) {
+        feature.setQuantity(feature.getQuantity() - quantity);
+        productFeatureRepository.save(feature);
+    }
 }
