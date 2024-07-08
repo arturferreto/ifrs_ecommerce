@@ -54,4 +54,9 @@ public class CartService {
 
         return cart;
     }
+
+    public void updateTotalAmount(Cart cart) {
+        cart.setTotalAmount(cart.getTotalAmount());
+        cartRepository.save(cart);
+    }
 }

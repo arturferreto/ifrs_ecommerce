@@ -76,6 +76,8 @@ public class CartItemService {
         cartItem.setQuantity(dto.quantity());
         cartItemRepository.save(cartItem);
 
+        totalizeCart();
+
         return cartItem;
     }
 
@@ -112,6 +114,8 @@ public class CartItemService {
         cartItem.setQuantity(dto.quantity());
         cartItemRepository.save(cartItem);
 
+        totalizeCart();
+
         return cartItem;
     }
 
@@ -119,5 +123,21 @@ public class CartItemService {
         Cart cart = getCart();
 
         cartItemRepository.findById(id).ifPresent(cartItemRepository::delete);
+
+        totalizeCart();
+    }
+
+    private void totalizeCart() {
+        Cart cart = getCart();
+
+        List<CartItem> cartItems = all();
+
+        double total = 0.0;
+        for (CartItem cartItem : cartItems) {
+            total += cartItem.getProductFeature().getProduct().getPrice() * cartItem.getQuantity();
+        }
+
+        cart.setTotalAmount(total);
+        cartService.updateTotalAmount(cart);
     }
 }
