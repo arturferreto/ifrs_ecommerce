@@ -22,7 +22,7 @@ public class ProductPhoto {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 255)
     private String photoUrl;
 
     @Column(nullable = false)

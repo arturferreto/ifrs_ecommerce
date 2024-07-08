@@ -1,7 +1,6 @@
 package com.ifrs.ecommerce.controllers;
 
-import com.ifrs.ecommerce.dtos.ProductStoreDto;
-import com.ifrs.ecommerce.dtos.ProductUpdateDto;
+import com.ifrs.ecommerce.dtos.ProductDto;
 import com.ifrs.ecommerce.models.Product;
 import com.ifrs.ecommerce.responses.DefaultResponse;
 import com.ifrs.ecommerce.services.ProductService;
@@ -40,15 +39,15 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<DefaultResponse> store(@RequestBody @Valid ProductStoreDto productStoreDto) {
-        Product product = productService.store(productStoreDto);
+    public ResponseEntity<DefaultResponse> store(@RequestBody @Valid ProductDto productDto) {
+        Product product = productService.store(productDto);
 
         return DefaultResponse.build(product, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<DefaultResponse> update(@PathVariable Integer id, @RequestBody @Valid ProductUpdateDto productUpdateDto) {
-        Product product = productService.update(id, productUpdateDto);
+    public ResponseEntity<DefaultResponse> update(@PathVariable Integer id, @RequestBody @Valid ProductDto productDto) {
+        Product product = productService.update(id, productDto);
 
         if (product == null) {
             return DefaultResponse.build("Product not found", HttpStatus.NOT_FOUND);
