@@ -29,7 +29,7 @@ public class ProductFeatureController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DefaultResponse> one(@PathVariable Integer productId, @PathVariable Integer id) {
-        ProductFeature feature = productFeatureService.one(productId, id);
+        ProductFeature feature = productFeatureService.one(id);
 
         if (feature == null) {
             return DefaultResponse.build("Feature not found", HttpStatus.NOT_FOUND);

@@ -36,9 +36,7 @@ public class ProductFeatureService {
         return features;
     }
 
-    public ProductFeature one(Integer productId, Integer id) {
-        Product product = checkProductExists(productId);
-
+    public ProductFeature one(Integer id) {
         return productFeatureRepository.findById(id).orElse(null);
     }
 
