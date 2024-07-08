@@ -119,6 +119,11 @@ public class CartService {
         Iterable<Object> cartItems = cartItemRepository.findAllByCart(cart);
 
         for (Object cartItem : cartItems) {
+            // verify if the product feature is in stock
+            if (((CartItem) cartItem).getProductFeature().getQuantity() < ((CartItem) cartItem).getQuantity()) {
+                return "product feature out of stock";
+            }
+
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProductFeature(((CartItem) cartItem).getProductFeature());
