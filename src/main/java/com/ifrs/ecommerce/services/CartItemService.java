@@ -137,6 +137,11 @@ public class CartItemService {
             total += cartItem.getProductFeature().getProduct().getPrice() * cartItem.getQuantity();
         }
 
+        if (cart.getDiscount() != null) {
+            Discount discount = cart.getDiscount();
+            total -= total * discount.getPercentage() / 100;
+        }
+
         cart.setTotalAmount(total);
         cartService.updateTotalAmount(cart);
     }
