@@ -25,9 +25,6 @@ public class ProductPhoto {
     @Column(nullable = false, length = 255)
     private String photoUrl;
 
-    @Column(nullable = false)
-    private Boolean isFavorite;
-
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
