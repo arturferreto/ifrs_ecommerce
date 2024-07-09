@@ -49,7 +49,6 @@ public class ProductPhotoService {
         ProductPhoto photo = new ProductPhoto();
         photo.setPhotoUrl(dto.photoUrl());
         photo.setProduct(product);
-        photo.setIsFavorite(dto.isFavorite());
         productPhotoRepository.save(photo);
 
         return photo;
@@ -65,7 +64,6 @@ public class ProductPhotoService {
         }
 
         photo.setPhotoUrl(dto.photoUrl());
-        photo.setIsFavorite(dto.isFavorite());
         productPhotoRepository.save(photo);
 
         return photo;

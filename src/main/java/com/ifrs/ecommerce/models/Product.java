@@ -27,6 +27,9 @@ public class Product {
     @Column(nullable = false, length = 100)
     private String description;
 
+    @Column(nullable = false)
+    private String favoritePhotoUrl;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
