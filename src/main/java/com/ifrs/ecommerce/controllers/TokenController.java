@@ -21,6 +21,7 @@ public class TokenController {
 	public TokenController(JwtService jwtService) {
 		this.jwtService = jwtService;
 	}
+	
 	@GetMapping("/generate-token")
 	public ResponseEntity<DefaultResponse> generateToken() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
