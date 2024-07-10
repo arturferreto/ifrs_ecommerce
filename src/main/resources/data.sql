@@ -34,3 +34,8 @@ insert into product_photos (id, product_id, photo_url) values (11, 4, 'https://c
 insert into product_photos (id, product_id, photo_url) values (12, 4, 'https://cdn.shopify.com/s/files/1/2068/4441/files/TBUW301OT01_PNK0006_1.jpg?v=1709767144&width=1400&height=1400&crop=center');
 insert into product_photos (id, product_id, photo_url) values (13, 4, 'https://cdn.shopify.com/s/files/1/2068/4441/files/TBUW301OT01_PNK0006_5.jpg?v=1709767144&width=1400&height=1400&crop=center');
 insert into product_photos (id, product_id, photo_url) values (14, 4, 'https://cdn.shopify.com/s/files/1/2068/4441/files/TBUW301OT01_PNK0006_4.jpg?v=1709767145&width=1400&height=1400&crop=center');
+
+select setval('products_seq', 4, true);
+select setval('product_features_seq', 13, true);
+select setval('product_photos_seq', 14, true);
+select setval('discounts_seq', 1, true);
