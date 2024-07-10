@@ -9,7 +9,6 @@ import com.ifrs.ecommerce.models.core.CacheData;
 import com.ifrs.ecommerce.repositories.ProductPhotoRepository;
 import com.ifrs.ecommerce.repositories.ProductFeatureRepository;
 import com.ifrs.ecommerce.repositories.ProductRepository;
-import com.ifrs.ecommerce.repositories.core.CacheDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductFeatureRepository productFeatureRepository;
     private final ProductPhotoRepository productPhotoRepository;
-    private final CacheDataRepository cacheDataRepository;
+    private final CacheDataService cacheDataService;
     private final ObjectMapper objectMapper;
 
     @Autowired
@@ -30,13 +29,13 @@ public class ProductService {
             ProductRepository productRepository,
             ProductFeatureRepository productFeatureRepository,
             ProductPhotoRepository productPhotoRepository,
-            CacheDataRepository cacheDataRepository,
+            CacheDataService cacheDataService,
             ObjectMapper objectMapper
     ) {
         this.productRepository = productRepository;
         this.productFeatureRepository = productFeatureRepository;
         this.productPhotoRepository = productPhotoRepository;
-        this.cacheDataRepository = cacheDataRepository;
+        this.cacheDataService = cacheDataService;
         this.objectMapper = objectMapper;
     }
 
@@ -60,7 +59,7 @@ public class ProductService {
         product.setFavoritePhotoUrl(dto.favoritePhotoUrl());
         productRepository.save(product);
 
-        cacheDataRepository.deleteAll();
+        cacheDataService.clearCache();
 
         return product;
     }
@@ -78,7 +77,7 @@ public class ProductService {
         product.setFavoritePhotoUrl(dto.favoritePhotoUrl());
         productRepository.save(product);
 
-        cacheDataRepository.deleteAll();
+        cacheDataService.clearCache();
 
         return product;
     }
@@ -92,13 +91,13 @@ public class ProductService {
 
         productRepository.delete(product);
 
-        cacheDataRepository.deleteAll();
+        cacheDataService.clearCache();
 
         return true;
     }
 
     public List<Product> publicAllProducts() throws InterruptedException, JsonProcessingException {
-        Optional<CacheData> optionalCacheData = cacheDataRepository.findById("allProducts");
+        Optional<CacheData> optionalCacheData = cacheDataService.findById("allProducts");
 
         // Cache hit
         if (optionalCacheData.isPresent()) {
@@ -114,13 +113,13 @@ public class ProductService {
 
         String productsAsJsonString = objectMapper.writeValueAsString(products);
         CacheData cacheData = new CacheData("allProducts", productsAsJsonString);
-        cacheDataRepository.save(cacheData);
+        cacheDataService.save(cacheData);
 
         return products;
     }
 
     public Product publicProduct(Integer id) throws InterruptedException, JsonProcessingException {
-        Optional<CacheData> optionalCacheData = cacheDataRepository.findById("product" + id);
+        Optional<CacheData> optionalCacheData = cacheDataService.findById("product" + id);
 
         // Cache hit
         if (optionalCacheData.isPresent()) {
@@ -145,12 +144,8 @@ public class ProductService {
 
         String productAsJsonString = objectMapper.writeValueAsString(product);
         CacheData cacheData = new CacheData("product" + id, productAsJsonString);
-        cacheDataRepository.save(cacheData);
+        cacheDataService.save(cacheData);
 
         return product;
-    }
-
-    public void clearCache() {
-        cacheDataRepository.deleteAll();
     }
 }

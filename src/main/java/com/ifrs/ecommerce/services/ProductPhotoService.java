@@ -15,13 +15,16 @@ import com.ifrs.ecommerce.repositories.ProductRepository;
 public class ProductPhotoService {
     private final ProductPhotoRepository productPhotoRepository;
     private final ProductRepository productRepository;
+    private final CacheDataService cacheDataService;
 
     public ProductPhotoService(
         ProductPhotoRepository productPhotoRepository,
-        ProductRepository productRepository
+        ProductRepository productRepository,
+        CacheDataService cacheDataService
     ) {
         this.productPhotoRepository = productPhotoRepository;
         this.productRepository = productRepository;
+        this.cacheDataService = cacheDataService;
     }
 
     private Product checkProductExists(Integer productId) {
@@ -51,6 +54,8 @@ public class ProductPhotoService {
         photo.setProduct(product);
         productPhotoRepository.save(photo);
 
+        cacheDataService.clearCache();
+
         return photo;
     }
 
@@ -66,6 +71,8 @@ public class ProductPhotoService {
         photo.setPhotoUrl(dto.photoUrl());
         productPhotoRepository.save(photo);
 
+        cacheDataService.clearCache();
+
         return photo;
     }
 
@@ -79,6 +86,8 @@ public class ProductPhotoService {
         }
 
         productPhotoRepository.delete(photo);
+
+        cacheDataService.clearCache();
 
         return true;
     }
