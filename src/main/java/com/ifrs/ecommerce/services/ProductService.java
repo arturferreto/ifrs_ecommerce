@@ -7,6 +7,7 @@ import com.ifrs.ecommerce.dtos.ProductDto;
 import com.ifrs.ecommerce.models.Product;
 import com.ifrs.ecommerce.models.core.CacheData;
 import com.ifrs.ecommerce.repositories.ProductPhotoRepository;
+import com.ifrs.ecommerce.repositories.ProductFeatureRepository;
 import com.ifrs.ecommerce.repositories.ProductRepository;
 import com.ifrs.ecommerce.repositories.core.CacheDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductFeatureRepository productFeatureRepository;
     private final ProductPhotoRepository productPhotoRepository;
     private final CacheDataRepository cacheDataRepository;
     private final ObjectMapper objectMapper;
@@ -26,11 +28,13 @@ public class ProductService {
     @Autowired
     public ProductService(
             ProductRepository productRepository,
+            ProductFeatureRepository productFeatureRepository,
             ProductPhotoRepository productPhotoRepository,
             CacheDataRepository cacheDataRepository,
             ObjectMapper objectMapper
     ) {
         this.productRepository = productRepository;
+        this.productFeatureRepository = productFeatureRepository;
         this.productPhotoRepository = productPhotoRepository;
         this.cacheDataRepository = cacheDataRepository;
         this.objectMapper = objectMapper;
@@ -127,9 +131,12 @@ public class ProductService {
         // Cache miss
         Product product = productRepository.findById(id).orElse(null);
 
-        // get the features and photos
         if (product != null) {
-            // todo: get the features and photos
+            Iterable<Object> photos = productPhotoRepository.findByProductId(product.getId());
+            product.setPhotos(photos);
+
+            Iterable<Object> features = productFeatureRepository.findByProductId(product.getId());
+            product.setFeatures(features);
         }
 
         if (product == null) {
