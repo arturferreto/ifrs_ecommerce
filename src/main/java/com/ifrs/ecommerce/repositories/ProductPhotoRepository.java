@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductPhotoRepository extends CrudRepository<ProductPhoto, Integer> {
     Iterable<Object> findAllByProduct(Product product);
+    Iterable<Object> findByProductId(Integer productId);
 }

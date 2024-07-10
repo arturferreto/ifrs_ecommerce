@@ -22,6 +22,7 @@ public class CartService {
     private final AddressService addressService;
     private final DiscountService discountService;
     private final ProductFeatureService productFeatureService;
+    private final CacheDataService cacheDataService;
 
     public CartService(
             CartRepository cartRepository,
@@ -30,7 +31,8 @@ public class CartService {
             OrderItemRepository orderItemRepository,
             AddressService addressService,
             DiscountService discountService,
-            ProductFeatureService productFeatureService
+            ProductFeatureService productFeatureService,
+            CacheDataService cacheDataService
     ) {
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
@@ -39,6 +41,7 @@ public class CartService {
         this.addressService = addressService;
         this.discountService = discountService;
         this.productFeatureService = productFeatureService;
+        this.cacheDataService = cacheDataService;
     }
 
     // one, store and update
@@ -142,6 +145,8 @@ public class CartService {
         // clear cart
         cartItemRepository.deleteAllByCart(cart);
         cartRepository.delete(cart);
+
+        cacheDataService.clearCache();
 
         return order;
     }

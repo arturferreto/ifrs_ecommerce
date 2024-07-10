@@ -14,13 +14,16 @@ import java.util.List;
 public class ProductFeatureService {
     private final ProductFeatureRepository productFeatureRepository;
     private final ProductRepository productRepository;
+    private final CacheDataService cacheDataService;
 
     public ProductFeatureService(
             ProductFeatureRepository productFeatureRepository,
-            ProductRepository productRepository
+            ProductRepository productRepository,
+            CacheDataService cacheDataService
     ) {
         this.productFeatureRepository = productFeatureRepository;
         this.productRepository = productRepository;
+        this.cacheDataService = cacheDataService;
     }
 
     private Product checkProductExists(Integer productId) {
@@ -49,6 +52,8 @@ public class ProductFeatureService {
         feature.setQuantity(dto.quantity());
         productFeatureRepository.save(feature);
 
+        cacheDataService.clearCache();
+
         return feature;
     }
 
@@ -65,6 +70,8 @@ public class ProductFeatureService {
         feature.setQuantity(dto.quantity());
         productFeatureRepository.save(feature);
 
+        cacheDataService.clearCache();
+
         return feature;
     }
 
@@ -78,6 +85,8 @@ public class ProductFeatureService {
         }
 
         productFeatureRepository.delete(feature);
+
+        cacheDataService.clearCache();
 
         return true;
     }
